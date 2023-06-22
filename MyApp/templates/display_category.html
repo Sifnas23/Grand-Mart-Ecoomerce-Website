@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Category</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+     $(document).ready(function(){
+                                   $("#submit").click(function(){
+                                       Swal.fire(
+                                            'Deleted',
+                                            'Deleted Succesfully',
+                                            'success'
+                                       )
+                                   })
+                                 })
+    </script>
+
+</head>
+<body>
+<div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Category data Table</h4>
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Category Name</th>
+                            <th>Image</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for d in data %}
+                          <tr>
+                            <td>{{d.Name}}</td>
+                            <td class="py-1">
+                              <img src="{{d.Image.url}}">
+                            </td>
+                            <td>{{d.Description}}</td>
+                            <td>
+                              <form action="{% url 'editcategorydata' dataid=d.id %}">
+                                <button type="submit" style="background-color:green;color:white;width:80px;height:30px;border-radius:7px">Edit</button>
+                              </form>
+                              <form action="{% url 'delcategory' dataid=d.id %}">
+                                <button type="submit" style="background-color:green;color:white;width:80px;height:30px;border-radius:7px" onclick="">Delete</button>
+                              </form>
+                            </td>
+
+                          </tr>
+
+                        </tbody>
+                        {% endfor %}
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+{% if messages %}
+  {% for message in messages %}
+
+   {% if message.tags == 'warning' %}
+   <script>
+  swal('{{message}}','','warning');
+   </script>
+
+   {% elif message.tags == 'error' %}
+   <script>
+  swal('{{message}}','','error');
+   </script>
+
+   {% else%}
+   <script>
+  swal('{{message}}','','success');
+   </script>
+
+   {% endif %}
+
+   {% endfor %} {% endif %}
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="col-lg-6 grid-margin stretch-card" style="margin-left:300px;margin-top:50px">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Customer Details</h4>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>City</th>
+                            <th>State</th>
+                              <th>Postal Code</th>
+                            <th>Phone Number</th>
+                            <th>Email Id</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for d in data %}
+                          <tr>
+                            <td>{{d.Name}}</td>
+                            <td>{{d.Address}}</td>
+                            <td>{{d.City}}</td>
+                            <td>{{d.State}}</td>
+                              <td>{{d.Postalcode}}</td>
+                            <td>{{d.PhoneNumber}}</td>
+                            <td>{{d.EmailId}}</td>
+                             <td>
+                               <form action="{% url 'customerdbfun' dataid=d.id %}">
+                               <button type="submit" class="btn btn-primary" >Delete</button>
+                               </form>
+                        </td>
+                          </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+</body>
+</html>
+{% endblock %}
